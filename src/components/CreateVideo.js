@@ -29,7 +29,7 @@ class CreateVideo extends Component {
         video: {
           name: this.state.name,
           tag: this.state.tag,
-          url: this.state.url,
+          url: 'https://www.youtube.com/embed/mDitt0MNVC0',
           user_id: user.id
         }
       }

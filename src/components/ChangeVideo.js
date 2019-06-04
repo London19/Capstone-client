@@ -19,7 +19,7 @@ handleSubmit = (event) => {
   event.preventDefault()
 
   axios({
-    url: `${apiUrl}/videos`,
+    url: `${apiUrl}/videos/${this.props.match.params.id}`,
     method: 'PATCH',
     headers: {
       'Authorization': `Token token=${this.props.user.token}`
