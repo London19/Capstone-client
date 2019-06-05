@@ -22,7 +22,7 @@ const unauthenticatedOptions = (
 const Header = ({ user }) => (
   <header className="main-header">
     <Navbar collapseOnSelect bg="primary" expand="md" variant="dark">
-      <Navbar.Brand href="/">All You Can Watch</Navbar.Brand>
+      <Navbar.Brand href="/">My Channel</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
