@@ -11,7 +11,7 @@ import ChangePassword from './auth/components/ChangePassword'
 import Videos from './components/Videos'
 import CreateVideo from './components/CreateVideo'
 import ChangeVideo from './components/ChangeVideo'
-// import Youtube from './Youtube'
+import { SnackbarProvider } from 'notistack'
 
 class App extends Component {
   constructor () {
@@ -31,7 +31,7 @@ class App extends Component {
     const { user } = this.state
 
     return (
-      <React.Fragment>
+      <SnackbarProvider maxSnack={3}>
         <Header user={user} />
         <main className="container">
           <Route exact path='/' render={() => (
@@ -56,7 +56,7 @@ class App extends Component {
             <ChangePassword alert={this.alert} user={user} />
           )} />
         </main>
-      </React.Fragment>
+      </SnackbarProvider>
     )
   }
 }
