@@ -10,15 +10,17 @@ class CreateVideo extends Component {
     super()
 
     this.state = {
-      name: '',
-      tag: '',
-      url: ''
+      movie: {
+        name: '',
+        tag: '',
+        url: ''
+      },
+      youtubeId: null
     }
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault()
-    const { user } = this.props
     axios({
       url: `${apiUrl}/videos`,
       method: 'POST',
@@ -30,7 +32,7 @@ class CreateVideo extends Component {
           name: this.state.name,
           tag: this.state.tag,
           url: 'https://www.youtube.com/embed/mDitt0MNVC0',
-          user_id: user.id
+          user_id: this.state.user.id
         }
       }
     })

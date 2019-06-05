@@ -11,8 +11,7 @@ import ChangePassword from './auth/components/ChangePassword'
 import Videos from './components/Videos'
 import CreateVideo from './components/CreateVideo'
 import ChangeVideo from './components/ChangeVideo'
-
-import Alert from 'react-bootstrap/Alert'
+// import Youtube from './Youtube'
 
 class App extends Component {
   constructor () {
@@ -28,23 +27,12 @@ class App extends Component {
 
   clearUser = () => this.setState({ user: null })
 
-  alert = (message, type) => {
-    this.setState({ alerts: [...this.state.alerts, { message, type }] })
-  }
-
   render () {
-    const { alerts, user } = this.state
+    const { user } = this.state
 
     return (
       <React.Fragment>
         <Header user={user} />
-        {alerts.map((alert, index) => (
-          <Alert key={index} dismissible variant={alert.type}>
-            <Alert.Heading>
-              {alert.message}
-            </Alert.Heading>
-          </Alert>
-        ))}
         <main className="container">
           <Route exact path='/' render={() => (
             <Videos user={user} alert={this.alert} />
