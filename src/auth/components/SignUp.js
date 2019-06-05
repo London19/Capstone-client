@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
 
+import TextField from '@material-ui/core/TextField'
+
+import Button from '@material-ui/core/Button'
+
 import { signUp, signIn } from '../api'
 import messages from '../messages'
 
@@ -41,37 +45,59 @@ class SignUp extends Component {
     const { email, password, passwordConfirmation } = this.state
 
     return (
-      <form className='auth-form' onSubmit={this.onSignUp}>
+      <form onSubmit={this.onSignUp}>
         <h3>Sign Up</h3>
 
-        <label htmlFor="email">Email</label>
-        <input
-          required
+        <TextField
           name="email"
-          value={email}
+          label="Email"
           type="email"
-          placeholder="Email"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="password">Password</label>
-        <input
           required
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          onChange={this.handleChange}
+          value={email}
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
+        <TextField
           name="password"
-          value={password}
+          label="Password"
           type="password"
-          placeholder="Password"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="passwordConfirmation">Confirm Password</label>
-        <input
           required
-          name="passwordConfirmation"
-          value={passwordConfirmation}
-          type="password"
-          placeholder="Confirm Password"
+          fullWidth
+          margin="dense"
+          variant="outlined"
           onChange={this.handleChange}
+          value={password}
+          InputLabelProps={{
+            shrink: true
+          }}
         />
-        <button type="submit">Sign Up</button>
+        <TextField
+          name="passwordConfirmation"
+          label="Password Confirmation"
+          type="password"
+          required
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          onChange={this.handleChange}
+          value={passwordConfirmation}
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
+        <Button
+          variant="contained"
+          size="large"
+          color="primary"
+          type="submit"
+        >
+          Sign Up
+        </Button>
       </form>
     )
   }

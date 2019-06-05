@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 
 import { signIn } from '../api'
 import messages from '../messages'
@@ -39,27 +41,44 @@ class SignIn extends Component {
     const { email, password } = this.state
 
     return (
-      <form className='auth-form' onSubmit={this.onSignIn}>
+      <form onSubmit={this.onSignIn}>
         <h3>Sign In</h3>
-        <label htmlFor="email">Email</label>
-        <input
-          required
-          type="email"
+        <TextField
           name="email"
-          value={email}
-          placeholder="Email"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="password">Password</label>
-        <input
+          label="Email"
+          type="email"
           required
-          name="password"
-          value={password}
-          type="password"
-          placeholder="Password"
+          fullWidth
+          margin="normal"
+          variant="outlined"
           onChange={this.handleChange}
+          value={email}
+          InputLabelProps={{
+            shrink: true
+          }}
         />
-        <button type="submit">Sign In</button>
+        <TextField
+          name="password"
+          label="Password"
+          type="password"
+          required
+          fullWidth
+          margin="dense"
+          variant="outlined"
+          onChange={this.handleChange}
+          value={password}
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
+        <Button
+          variant="contained"
+          size="large"
+          color="primary"
+          type="submit"
+        >
+          Sign In
+        </Button>
       </form>
     )
   }
