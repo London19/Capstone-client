@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { withSnackbar } from 'notistack'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import axios from 'axios'
@@ -32,10 +33,10 @@ handleSubmit = (event) => {
       }
     }
   })
-    .then(() => this.props.alert(`${this.state.name} has changed!`, 'success'))
+    .then(() => this.props.enqueueSnackbar(`${this.state.name} has changed!`, { variant: 'success' }))
     .then(() => this.props.history.push('/'))
     .catch(() => {
-      this.props.alert('Whoops! Failed to change your video. Please try again.', 'danger')
+      this.props.enqueueSnackbar('Whoops! Failed to change your video. Please try again.', { variant: 'danger' })
       this.setState({
         name: '',
         tag: '',
@@ -110,4 +111,4 @@ render () {
 }
 }
 
-export default withRouter(ChangeVideo)
+export default withSnackbar(withRouter(ChangeVideo))

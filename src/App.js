@@ -12,6 +12,7 @@ import ChangePassword from './auth/components/ChangePassword'
 import Videos from './components/Videos'
 import CreateVideo from './components/CreateVideo'
 import ChangeVideo from './components/ChangeVideo'
+// import Video from './components/Video'
 
 import { SnackbarProvider } from 'notistack'
 import { AnimatedSwitch } from 'react-router-transition'
@@ -61,6 +62,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/create-video' render={() => (
             <CreateVideo alert={this.alert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/videos' render={() => (
+            <Videos alert={this.alert} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
             <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />

@@ -1,21 +1,19 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
+import { withSnackbar } from 'notistack'
+import Button from '@material-ui/core/Button'
 import axios from 'axios'
 import apiUrl from '../apiConfig'
+import TextField from '@material-ui/core/TextField'
 
 class CreateVideo extends Component {
   constructor () {
     super()
 
     this.state = {
-      movie: {
-        name: '',
-        tag: '',
-        url: ''
-      },
-      youtubeId: null
+      name: '',
+      tag: '',
+      url: ''
     }
   }
 
@@ -31,19 +29,20 @@ class CreateVideo extends Component {
         video: {
           name: this.state.name,
           tag: this.state.tag,
-          url: 'https://www.youtube.com/embed/mDitt0MNVC0',
-          user_id: this.state.user.id
+          url: this.state.url,
+          user_id: this.props.user.id
         }
       }
     })
-      .then(() => this.props.alert(`${this.state.name} has been added to the video!`, 'success'))
+      .then(() => this.props.enqueueSnackbar(`${this.state.name} has been added to the video!`, { variant: 'success' }))
       .then(() => this.props.history.push('/'))
       .catch(() => {
-        this.props.alert('Whoops! Failed to add your video. Please try again.', 'danger')
+        this.props.enqueueSnackbar('Whoops! Failed to add your video. Please try again.', { variant: 'error' })
         this.setState({
           name: '',
           tag: '',
-          url: ''
+          url: '',
+          user_id: ''
         })
       })
   }
@@ -61,61 +60,72 @@ class CreateVideo extends Component {
   render () {
     const { name, tag, url } = this.state
     return (
-      <Form className="form" onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <h2>Create Video</h2>
-        <Form.Group controlId="videoName">
-          <Form.Label>Video Name</Form.Label>
-          <Form.Control
-            type="text"
-            value={name}
-            name="name"
-            required
-            onChange={this.handleChange}
-            placeholder="Enter the video name"
-          />
-        </Form.Group>
+        <TextField
+          name="name"
+          label="Name"
+          type="text"
+          required
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          onChange={this.handleChange}
+          value={name}
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
 
-        <Form.Group controlId="videoTag">
-          <Form.Label>Tag</Form.Label>
-          <Form.Control
-            type="text"
-            value={tag}
-            name="tag"
-            required
-            placeholder="Enter the Tag"
-            onChange={this.handleChange}
-          />
-        </Form.Group>
+        <TextField
+          name="tag"
+          label="Tag"
+          type="text"
+          required
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          onChange={this.handleChange}
+          value={tag}
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
 
-        <Form.Group controlId="videoUrl">
-          <Form.Label>Url</Form.Label>
-          <Form.Control
-            type="text"
-            value={url}
-            name="url"
-            required
-            placeholder="Enter the Url"
-            onChange={this.handleChange}
-          />
-        </Form.Group>
+        <TextField
+          name="url"
+          label="URL"
+          type="text"
+          required
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          onChange={this.handleChange}
+          value={url}
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
         <Button
-          variant="primary"
+          variant="outlined"
           type="submit"
           className="m-1"
+          color="secondary"
         >
           Submit
         </Button>
         <Button
-          variant="danger"
+          variant="outlined"
           type="button"
           className="m-1"
+          color="secondary"
           onClick={this.resetForm}
         >
           Reset
         </Button>
-      </Form>
+      </form>
     )
   }
 }
 
-export default withRouter(CreateVideo)
+export default withSnackbar(withRouter(CreateVideo))

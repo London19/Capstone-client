@@ -4,7 +4,6 @@ import axios from 'axios'
 import ListGroup from 'react-bootstrap/ListGroup'
 import apiUrl from '../apiConfig'
 import Button from 'react-bootstrap/Button'
-
 class Videos extends Component {
   constructor () {
     super()
@@ -55,10 +54,10 @@ class Videos extends Component {
             <ListGroup.Item key={video.id}>
               <span className="h5 d-block">{video.name}</span>
               <span className="d-block">{video.tag}</span>
-              <a href={video.url} className="d-block">{video.name}</a>
               <Button variant="danger" onClick={() => this.handleDelete(video.id)}>Delete Video</Button>
               <Link to={'/videos/' + video.id + '/change-video'}>
                 <Button variant="danger">Change Video</Button>
+                <iframe width="560" height="315" src={ video.url.replace('watch?v=', 'embed/') } allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
               </Link>
             </ListGroup.Item>
           )) }
@@ -66,7 +65,7 @@ class Videos extends Component {
             <ListGroup.Item key={video.id}>
               <span className="h5 d-block">{video.name}</span>
               <span>{video.tag}</span>
-              <a href={video.url} className="d-block">{video.name}</a>
+              <iframe width="560" height="315" src={ video.url.replace('watch?v=', 'embed/') } allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
             </ListGroup.Item>
           ))}
         </ListGroup>
