@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 
@@ -56,57 +56,70 @@ resetForm = () => this.setState({
 render () {
   const { name, tag, url } = this.state
   return (
-    <Form className="form" onSubmit={this.handleSubmit}>
+    <form onSubmit={this.handleSubmit}>
       <h2>Change Video</h2>
-      <Form.Group controlId="videoName">
-        <Form.Label>Video Name</Form.Label>
-        <Form.Control
-          type="text"
-          value={name}
-          name="name"
-          required
-          onChange={this.handleChange}
-          placeholder="Enter the video name"
-        />
-      </Form.Group>
-      <Form.Group controlId="videoTag">
-        <Form.Label>Video Tag</Form.Label>
-        <Form.Control
-          type="text"
-          value={tag}
-          name="tag"
-          required
-          placeholder="Enter the Tag"
-          onChange={this.handleChange}
-        />
-      </Form.Group>
-      <Form.Group controlId="videoUrl">
-        <Form.Label>Video Url</Form.Label>
-        <Form.Control
-          type="text"
-          value={url}
-          name="url"
-          required
-          placeholder="Enter the Url"
-          onChange={this.handleChange}
-        />
-      </Form.Group>
+      <TextField
+        name="name"
+        label="Name"
+        type="text"
+        required
+        fullWidth
+        margin="normal"
+        variant="outlined"
+        onChange={this.handleChange}
+        value={name}
+        InputLabelProps={{
+          shrink: true
+        }}
+      />
+
+      <TextField
+        name="tag"
+        label="Tag"
+        type="text"
+        required
+        fullWidth
+        margin="normal"
+        variant="outlined"
+        onChange={this.handleChange}
+        value={tag}
+        InputLabelProps={{
+          shrink: true
+        }}
+      />
+
+      <TextField
+        name="url"
+        label="URL"
+        type="text"
+        required
+        fullWidth
+        margin="normal"
+        variant="outlined"
+        onChange={this.handleChange}
+        value={url}
+        InputLabelProps={{
+          shrink: true
+        }}
+      />
       <Button
-        variant="primary"
+        variant="outlined"
         type="submit"
         className="m-1"
+        color="secondary"
       >
         Submit
       </Button>
       <Button
-        variant="danger"
+        variant="outlined"
         type="button"
         className="m-1"
+        color="secondary"
         onClick={this.resetForm}
       >
         Reset
       </Button>
-    </Form>
+    </form>
   )
 }
 }
