@@ -36,6 +36,7 @@ class App extends Component {
 
     return (
       <SnackbarProvider maxSnack={3}>
+        <div><img className='bg' src={'https://www.google.com/search?biw=1390&bih=755&tbm=isch&sa=1&ei=6tj5XNKdCou0ggep85HADg&q=summer&oq=summer&gs_l=img.3..0i67l8j0j0i67.12276.15188..17592...0.0..0.90.479.6......0....1..gws-wiz-img.......35i39.GSdJPJvahyA#imgrc=HX2o60gLgXh95M:'} /></div>
         <Header user={user} />
         <main className="container">
           <Route exact path='/' render={() => (
