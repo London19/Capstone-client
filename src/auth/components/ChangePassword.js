@@ -46,7 +46,7 @@ class ChangePassword extends Component {
         <TextField
           name="oldPassword"
           label="Old Password"
-          type="oldPassword"
+          type="password"
           required
           fullWidth
           margin="dense"
@@ -60,7 +60,7 @@ class ChangePassword extends Component {
         <TextField
           name="newPassword"
           label="New Password"
-          type="newPassword"
+          type="password"
           required
           fullWidth
           margin="normal"
