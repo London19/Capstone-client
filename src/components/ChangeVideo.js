@@ -36,7 +36,7 @@ handleSubmit = (event) => {
     .then(() => this.props.enqueueSnackbar(`${this.state.name} has changed!`, { variant: 'success' }))
     .then(() => this.props.history.push('/'))
     .catch(() => {
-      this.props.enqueueSnackbar('Whoops! Failed to change your video. Please try again.', { variant: 'danger' })
+      this.props.enqueueSnackbar('Whoops! Failed to change unauthenticated video. Please try again.', { variant: 'danger' })
       this.setState({
         name: '',
         tag: '',

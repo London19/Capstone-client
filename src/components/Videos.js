@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
-import GridListTileBar from '@material-ui/core/GridListTileBar'
-import IconButton from '@material-ui/core/IconButton'
-import DeleteIcon from '@material-ui/icons/Delete'
+import Grid from '@material-ui/core/Grid'
+import Chip from '@material-ui/core/Chip'
 import Fab from '@material-ui/core/Fab'
+import Paper from '@material-ui/core/Paper'
 import Icon from '@material-ui/core/Icon'
 import apiUrl from '../apiConfig'
 import Button from '@material-ui/core/Button'
@@ -40,7 +38,9 @@ class Videos extends Component {
           .then(res => {
             this.setState({ videos: res.data.videos })
           })
-          .catch(console.error)
+          .catch(() => {
+            this.props.enqueueSnackbar('Whoops! You can only delete your own videos. Please try again.', { variant: 'danger' })
+          })
       })
   }
 
@@ -49,49 +49,59 @@ class Videos extends Component {
     const { videos } = this.state
 
     return (
-      <div>
-        <div className="d-flex justify-content-between align-items-center py-3">
-          <h3 className="m-0">Current Videos</h3>
-          {!user && <p className="m-0">Sign in to edit videos</p>}
+      <Grid container spacing={3} style={{ padding: '2rem' }}>
+        <Grid item xs={6}>
+          <h3>Current Videos</h3>
+        </Grid>
+        <Grid item xs={6} style={{ textAlign: 'right' }}>
+          {!user && <p>Sign in to edit videos</p>}
           {user && <Button variant="contained" color="primary" href="#create-video">Add A Video</Button>}
-        </div>
-        <GridList cellHeight={350}>
-          { user && videos.map(video => (
-            <GridListTile key={video.id}>
-              <IconButton aria-label={`info about ${video.name}`}>
-                <Fab size="small" color="secondary" aria-label="Edit">
-                  <Link to={'/videos/' + video.id + '/change-video'}>
-
-                    <Icon>edit_icon</Icon>
-                  </Link>
-                </Fab>
-                <DeleteIcon fontSize="large" onClick={() => this.handleDelete(video.id)}>Delete Video</DeleteIcon>
-              </IconButton>
-              <ul>
-                <li>{<span className="h5 d-block">Name: {video.name}</span>}</li>
-                <li>{<span className="d-block">Tag: {video.tag}</span>}</li>
-              </ul>
-              <iframe width="560" height="315" src={ video.url.replace('watch?v=', 'embed/') }
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen></iframe>
-            </GridListTile>
-          )) }
-          { !user && videos.map(video => (
-            <GridListTile key={video.id}>
-              <iframe width="560" height="315" src={ video.url.replace('watch?v=', 'embed/') }
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen></iframe><GridListTileBar
-                name={<span>{video.name}</span>}
-                tag={<span>{video.tag}</span>}
-                actionIcon={
-                  <IconButton aria-label={`info about ${video.name}`}>
-                  </IconButton>
-                }
-              />
-            </GridListTile>
-          ))}
-        </GridList>
-      </div>
+        </Grid>
+        { user && videos.map(video => (
+          <Grid item xs={12} md={6} key={video.id}>
+            <Fab size="small" color="secondary" aria-label="Edit">
+              <Link to={'/videos/' + video.id + '/change-video'}>
+                <Icon>edit_icon</Icon>
+              </Link>
+            </Fab>
+            <Fab size="small" color="secondary" aria-label="Edit" onClick={() => this.handleDelete(video.id)}>
+              <Icon>delete_icon</Icon>
+            </Fab>
+            <ul>
+              <li>{<span className="h5 d-block">Name: {video.name}</span>}</li>
+              <li>{<span className="d-block">Tag: {video.tag}</span>}</li>
+            </ul>
+            <div className="video-container">
+              <div className="video">
+                <iframe
+                  src={ video.url.replace('watch?v=', 'embed/') }
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen>
+                </iframe>
+              </div>
+            </div>
+          </Grid>
+        )) }
+        { !user && videos.map(video => (
+          <Grid item xs={12} md={6} key={video.id}>
+            <div className="video-container">
+              <div className="video">
+                <iframe
+                  src={ video.url.replace('watch?v=', 'embed/') }
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen>
+                </iframe>
+              </div>
+            </div>
+            <Grid item xs={12}>
+              <Paper style={{ padding: '1rem' }}>
+                <h4>{video.name}</h4>
+                <Chip size="small" label={video.tag} />
+              </Paper>
+            </Grid>
+          </Grid>
+        ))}
+      </Grid>
     )
   }
 }
